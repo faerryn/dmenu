@@ -1,2 +1,10 @@
 #!/bin/sh
-dmenu_path | dmenu "$@" | ${SHELL:-"/bin/sh"} &
+set -eu
+unset TERM
+RUN=
+TEMPFILE=
+
+>/dev/null command -v run && RUN=run
+TEMPFILE="$(mktemp /tmp/dmenu.XXXXXXXXXX)"
+dmenu_path | dmenu "$@" > "${TEMPFILE}" && cat "${TEMPFILE}" | xargs -I{} -P0 ${SHELL:-"/bin/sh"} -c "${RUN} {} &"
+rm "${TEMPFILE}"
