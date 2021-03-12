@@ -20,8 +20,8 @@ static unsigned int lines      = 0;
 static unsigned int lineheight = 0;
 static unsigned int min_lineheight = 8;
 /* -x and -y option; x and y padding */
-static int padx = 4;
-static int pady = 4;
+static int padx = 8;
+static int pady = 8;
 
 /*
  * Characters not considered part of a word while deleting words
