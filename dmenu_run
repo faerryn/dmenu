@@ -1,10 +1,9 @@
 #!/bin/sh
+
 set -eu
 unset TERM
-RUN=
-TEMPFILE=
 
+RUN=
 >/dev/null command -v run && RUN=run
-TEMPFILE="$(mktemp /tmp/dmenu.XXXXXXXXXX)"
-dmenu_path | dmenu "$@" > "${TEMPFILE}" && cat "${TEMPFILE}" | xargs -I{} -P0 ${SHELL:-"/bin/sh"} -c "${RUN} {} &"
-rm "${TEMPFILE}"
+TASKS=$(dmenu_path | dmenu "$@")
+echo "${TASKS}" | xargs -I{} -P0 ${SHELL:-"/bin/sh"} -c "${RUN} {} &"
