@@ -3,7 +3,5 @@
 set -eu
 unset TERM
 
-RUN=
->/dev/null command -v run && RUN=run
 TASKS=$(dmenu_path | dmenu "$@")
-echo "${TASKS}" | xargs -I{} -P0 ${SHELL:-"/bin/sh"} -c "${RUN} {} &"
+echo "${TASKS}" | ${SHELL:-"/bin/sh"} &
